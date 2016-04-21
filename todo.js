@@ -4,7 +4,7 @@ console.log('todo.js');
 var app = angular.module('todo',[]);
 
 // controllers
-app.controller('ToDoController', function() {
+app.controller('ToDoController', function(DateService) {
 	var vm = this;
 
 	// PRIVATE
@@ -60,6 +60,7 @@ app.controller('ToDoController', function() {
 	vm.addNew = function() {
 		console.log('vm.addNew()', vm.newTask);
 		vm.newTask.done = false;
+		vm.newTask.date = DateService.format(vm.newTask.date);
 		vm.tasks.unshift(vm.newTask);
 		vm.clearNew();
 	}
@@ -71,3 +72,20 @@ app.controller('ToDoController', function() {
 	// RUN
 	_init();
 });
+
+// values
+app.value('mnt', window.moment);
+
+// servies
+app.factory('DateService', function(mnt) {
+	function format(timeStr) {
+		return mnt(timeStr).format('MMMM D, YYYY')
+	}
+
+	return {
+		format: format,
+	}
+});
+
+
+
