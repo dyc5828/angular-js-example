@@ -15,24 +15,25 @@ app.controller('ToDoController', function($scope, DateService, StatService) {
 				name: 'Angular Guest Lecutre',
 				date: '4/21/2016',
 				description: 'Intro to Angular for ITP 301',
-				done: false, 
+				done: 0, 
 			},
 			{
 				name: 'Prepare Angular Lecutre',
 				date: '4/20/2016',
 				description: 'Finish Angular Example and Finalize Slides',
-				done: true, 
+				done: 1, 
 			},
 			{
 				name: 'Chill',
 				date: '4/21/2016',
 				description: 'Relax after the lecture',
-				done: false, 
+				done: 0, 
 			},
 		]
 	}
 	$scope.$watch('vm.tasks', function() {
 		vm.remaining = StatService.countRemaining(vm.tasks);
+		vm.done = StatService.countDone(vm.tasks);
 	}, true);
 
 	// PUBLIC
@@ -41,13 +42,11 @@ app.controller('ToDoController', function($scope, DateService, StatService) {
 	vm.search = '';
 	vm.newTask = {};
 	vm.remaining = 0;
-	vm.done = function(task) {
+	vm.done = 0;
+	vm.toggle = function(task) {
 		// console.log('vm.done()', task);
-		vm.tasks[vm.tasks.indexOf(task)].done = true;
-	}
-	vm.undone = function(task) {
-		// console.log('vm.undone()', task);
-		vm.tasks[vm.tasks.indexOf(task)].done = false;
+		vm.tasks[vm.tasks.indexOf(task)].done ^= true;
+		console.log(vm.tasks);
 	}
 	vm.detail = function(task) {
 		// console.log('vm.detail()', task);
@@ -63,7 +62,7 @@ app.controller('ToDoController', function($scope, DateService, StatService) {
 	}
 	vm.addNew = function() {
 		console.log('vm.addNew()', vm.newTask);
-		vm.newTask.done = false;
+		vm.newTask.done = 0;
 		vm.newTask.date = DateService.format(vm.newTask.date);
 		vm.tasks.unshift(vm.newTask);
 		vm.clearNew();
@@ -99,9 +98,17 @@ app.factory('StatService', function() {
 		});
 		return num;
 	}
+	function countDone(tasks) {
+		var num = 0;
+		tasks.forEach(function(task) {
+			task.done == true ? num++ : null;
+		});
+		return num;
+	}
 
 	return {
 		countRemaining: countRemaining,
+		countDone: countDone,
 	}
 })
 

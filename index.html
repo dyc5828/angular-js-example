@@ -82,34 +82,41 @@
 	</div><!--.row-->
 	<div class="row">
 		<div class="col-md-6">
-			<h3>
-				To Do
-				<small>{{ vm.remaining }} remaining</small>
-			</h3>
-			<table class="table">
-				<tr ng-repeat="task in vm.tasks | filter:{done:false} | filter:vm.search">
-					<td class="col-md-1">
-						<div class="status status-todo" ng-click="vm.done(task)"></div>
-					</td>
-					<td>
-						<span class="task-name" ng-click="vm.detail(task)">
-							{{ task.name }}
-						</span>
-					</td>
-				</tr>
-			</table>
-			<h4>
-				Done
-				<button class="btn btn-danger btn-xs" ng-click="vm.clear()">Clear</button>
-			</h4>
-			<table class="table">
-				<tr ng-repeat="task in vm.tasks | filter:{done:true} | filter:vm.search">
-					<td class="col-md-1">
-						<div class="status status-done" ng-click="vm.undone(task)"></div>
-					</td>
-					<td class="task-name" ng-click="vm.detail(task)"><s>{{ task.name }}<s></td>
-				</tr>
-			</table>
+			<p class="lead" ng-if="!vm.remaining">Good Job! You can do whatever you want.</p>
+			<div ng-if="vm.remaining">
+				<h3>
+					To Do
+					<small ng-if="vm.remaining">{{ vm.remaining }} remaining</small>
+				</h3>
+				
+				<table class="table">
+					<tr ng-repeat="task in vm.tasks | filter:{done:0} | filter:vm.search">
+						<td class="col-md-1">
+							<div class="status status-todo" ng-click="vm.toggle(task)"></div>
+						</td>
+						<td>
+							<span class="task-name" ng-click="vm.detail(task)">
+								{{ task.name }}
+							</span>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div ng-if="vm.done">
+				<h4>
+					Done
+					<button class="btn btn-danger btn-xs" ng-click="vm.clear()">Clear</button>
+				</h4>
+				<table class="table">
+					<tr ng-repeat="task in vm.tasks | filter:{done:1} | filter:vm.search">
+						<td class="col-md-1">
+							<div class="status status-done" ng-click="vm.toggle(task)"></div>
+						</td>
+						<td class="task-name" ng-click="vm.detail(task)"><s>{{ task.name }}<s></td>
+					</tr>
+				</table>
+			</div>
+			
 		</div><!--.col-->
 		<div class="col-md-6" ng-if="vm.task.name">
 			<h3>
