@@ -4,7 +4,7 @@ console.log('todo.js');
 var app = angular.module('todo',[]);
 
 // controllers
-app.controller('ToDoController', function(DateService) {
+app.controller('ToDoController', function($scope, DateService, StatService) {
 	var vm = this;
 
 	// PRIVATE
@@ -31,12 +31,16 @@ app.controller('ToDoController', function(DateService) {
 			},
 		]
 	}
+	$scope.$watch('vm.tasks', function() {
+		vm.remaining = StatService.countRemaining(vm.tasks);
+	}, true);
 
 	// PUBLIC
 	vm.tasks = [];
 	vm.task = {};
 	vm.search = '';
 	vm.newTask = {};
+	vm.remaining = 0;
 	vm.done = function(task) {
 		// console.log('vm.done()', task);
 		vm.tasks[vm.tasks.indexOf(task)].done = true;
@@ -86,6 +90,20 @@ app.factory('DateService', function(mnt) {
 		format: format,
 	}
 });
+
+app.factory('StatService', function() {
+	function countRemaining(tasks) {
+		var num = 0;
+		tasks.forEach(function(task) {
+			task.done == false ? num++ : null;
+		});
+		return num;
+	}
+
+	return {
+		countRemaining: countRemaining,
+	}
+})
 
 
 
