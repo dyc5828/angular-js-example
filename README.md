@@ -6,10 +6,10 @@
 
 ## Branches
 
-[Master](https://github.com/dyc5828/stripe-laravel-example/tree/master)
+[Master](https://github.com/dyc5828/angular-js-example/tree/master)
 *Full Working Code*
 
-[Starter](https://github.com/dyc5828/stripe-laravel-example/tree/starter)
+[Starter](https://github.com/dyc5828/angular-js-example/tree/starter)
 
 ## AngularJS
 
