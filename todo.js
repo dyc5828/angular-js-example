@@ -82,8 +82,13 @@ app.factory('DateService', function(mnt) {
 		return mnt(timeStr).format('MMMM D, YYYY')
 	}
 
+	function after(timeStr) {
+		return mnt().isAfter(new Date(timeStr), 'day');
+	}
+
 	return {
 		format: format,
+		after: after,
 	}
 });
 
@@ -135,6 +140,21 @@ app.directive('doneList', function() {
 	return {
 		restrict: 'E',
 		templateUrl: '/done-list.html',
+	}
+});
+
+app.directive('late', function(DateService) {
+	return {
+		restrict: 'A',
+		scope: {
+			late: '=',
+		},
+		link: function($scope, $el) {
+			console.log($scope.late);
+			if(DateService.after($scope.late)) {
+				$el.addClass('text-danger');
+			}
+		},
 	}
 });
 

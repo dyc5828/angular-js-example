@@ -5,7 +5,7 @@
 	</h3>
 	
 	<table class="table">
-		<tr ng-repeat="task in vm.tasks | filter:{done:0} | filter:vm.search">
+		<tr late="task.date" ng-repeat="task in vm.tasks | filter:{done:0} | filter:vm.search">
 			<td class="col-md-1">
 				<div class="status status-todo" ng-click="vm.toggle(task)"></div>
 			</td>
