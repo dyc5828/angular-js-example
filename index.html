@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="todo">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,8 +28,10 @@
 	></script>
 	<!-- Angular -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+	<!-- ToDo JS -->
+	<script src="todo.js"></script>
 </head>
-<body>
+<body ng-controller="ToDoController as vm">
 
 <!-- New Task Modal -->
 <div class="modal fade" id="new-task-modal" tabindex="-1" role="dialog">
@@ -66,13 +68,13 @@
 <!-- To Do App -->
 <div class="container">
 	<h2>
-		To Do List
+		To Do List {{ vm.test }}
 		<button class="btn btn-primary" data-toggle="modal" data-target="#new-task-modal">New</button>
 	</h2>
 	<div class="row">
 		<div class="col-md-6">
 			<div class="form">
-				<input type="text" class="form-control">
+				<input type="text" class="form-control" ng-model="vm.test">
 			</div>
 		</div><!--.col-->
 	</div><!--.row-->
