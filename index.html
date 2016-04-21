@@ -12,6 +12,8 @@
 		integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
 		crossorigin="anonymous"
 	>
+	<!-- ToDo CSS -->
+	<link rel="stylesheet" href="todo.css">
 	<!-- jQuery -->
 	<script
 		src="https://code.jquery.com/jquery-2.2.3.min.js"
@@ -28,6 +30,63 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
 </head>
 <body>
-
+<div class="container">
+	<h2>
+		To Do List
+		<button class="btn btn-primary">New</button>
+	</h2>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form">
+				<input type="text" class="form-control">
+			</div>
+		</div><!--.col-->
+	</div><!--.row-->
+	<div class="row">
+		<div class="col-md-6">
+			<h3>
+				To Do
+				<small>2 remaining</small>
+			</h3>
+			<table class="table">
+				<tr>
+					<td class="col-md-1">
+						<div class="status status-todo"></div>
+					</td>
+					<td>Task</td>
+				</tr>
+				<tr>
+					<td class="col-md-1">
+						<div class="status status-todo"></div>
+					</td>
+					<td>Task</td>
+				</tr>
+			</table>
+			<h4>
+				Done
+				<button class="btn btn-danger btn-xs">Clear</button>
+			</h4>
+			<table class="table">
+				<tr>
+					<td class="col-md-1">
+						<div class="status status-done"></div>
+					</td>
+					<td>Task</td>
+				</tr>
+			</table>
+		</div><!--.col-->
+		<div class="col-md-6">
+			<h3>Task</h3>
+			<h4>Due Date</h4>
+			<p class="lead">
+				Jan 1, 2016
+			</p>
+			<h4>Description</h4>
+			<p class="lead">
+				This is my task. There are many like it but this is mine.
+			</p>
+		</div><!--.col-->
+	</div><!--.row-->
+</div><!--.container-->
 </body>
 </html>
