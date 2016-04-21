@@ -118,28 +118,28 @@ app.factory('StatService', function() {
 app.directive('newTask', function() {
 	return {
 		restrict: 'E',
-		templateUrl: '/new-task.html',
+		templateUrl: '/templates/new-task.html',
 	}
 });
 
 app.directive('taskDetail', function() {
 	return {
 		restrict: 'E',
-		templateUrl: '/task-detail.html',
+		templateUrl: '/templates/task-detail.html',
 	}
 });
 
 app.directive('todoList', function() {
 	return {
 		restrict: 'E',
-		templateUrl: '/todo-list.html',
+		templateUrl: '/templates/todo-list.html',
 	}
 });
 
 app.directive('doneList', function() {
 	return {
 		restrict: 'E',
-		templateUrl: '/done-list.html',
+		templateUrl: '/templates/done-list.html',
 	}
 });
 
@@ -150,7 +150,7 @@ app.directive('late', function(DateService) {
 			late: '=',
 		},
 		link: function($scope, $el) {
-			console.log($scope.late);
+			// console.log($scope.late);
 			if(DateService.after($scope.late)) {
 				$el.addClass('text-danger');
 			}

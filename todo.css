@@ -31,15 +31,15 @@ tr {
 }
 
 .status-todo {
-	background-image: url('todo.svg');
+	background-image: url('assets/todo.svg');
 }
 .status-todo:hover {
-	background-image: url('done.svg');
+	background-image: url('assets/done.svg');
 }
 
 .status-done {
-	background-image: url('done.svg');
+	background-image: url('assets/done.svg');
 }
 .status-done:hover {
-	background-image: url('todo.svg');
+	background-image: url('assets/todo.svg');
 }
