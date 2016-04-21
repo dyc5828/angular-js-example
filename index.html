@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="todo">
+<html>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,8 +12,6 @@
 		integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
 		crossorigin="anonymous"
 	>
-	<!-- Toastr -->
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 	<!-- ToDo CSS -->
 	<link rel="stylesheet" href="todo.css">
 	<!-- jQuery -->
@@ -28,43 +26,17 @@
 		integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 		crossorigin="anonymous"
 	></script>
-	<!-- Moment JS -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
-	<!-- Toastr JS -->
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-	<!-- Angular -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
 	<!-- ToDo JS -->
 	<script src="todo.js"></script>
 </head>
-<body ng-controller="ToDoController as vm">
+<body>
 
 <!-- New Task Modal -->
-<new-task></new-task>
 
 <!-- To Do App -->
 <div class="container">
-	<h2>
-		To Do List
-		<button class="btn btn-primary" data-toggle="modal" data-target="#new-task-modal">New</button>
-	</h2>
-	<div class="row">
-		<div class="col-md-6">
-			<div class="form">
-				<input type="text" class="form-control" ng-model="vm.search">
-			</div>
-		</div><!--.col-->
-	</div><!--.row-->
-	<div class="row">
-		<div class="col-md-6">
-			<p class="lead" ng-if="!vm.remaining">Good Job! You can do whatever you want.</p>
-			<todo-list></todo-list>
-			<done-list></done-list>
-		</div><!--.col-->
-		<div class="col-md-6" ng-if="vm.task.name">
-			<task-detail></task-detail>
-		</div><!--.col-->
-	</div><!--.row-->
+	
 </div><!--.container-->
+
 </body>
 </html>
