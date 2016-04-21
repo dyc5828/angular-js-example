@@ -39,7 +39,7 @@ app.controller('ToDoController', function($scope, DateService, StatService, tstr
 		_save();
 	}
 	vm.detail = function(task) {
-		// console.log('vm.detail()', task);
+		console.log('vm.detail()', task);
 		vm.task = vm.tasks[vm.tasks.indexOf(task)];
 	}
 	vm.clear = function() {
@@ -107,7 +107,39 @@ app.factory('StatService', function() {
 		countRemaining: countRemaining,
 		countDone: countDone,
 	}
-})
+});
+
+// directives
+app.directive('newTask', function() {
+	return {
+		restrict: 'E',
+		templateUrl: '/new-task.html',
+	}
+});
+
+app.directive('taskDetail', function() {
+	return {
+		restrict: 'E',
+		templateUrl: '/task-detail.html',
+	}
+});
+
+app.directive('todoList', function() {
+	return {
+		restrict: 'E',
+		templateUrl: '/todo-list.html',
+	}
+});
+
+app.directive('doneList', function() {
+	return {
+		restrict: 'E',
+		templateUrl: '/done-list.html',
+	}
+});
+
+
+
 
 
 
