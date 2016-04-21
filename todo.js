@@ -4,7 +4,7 @@ console.log('todo.js');
 var app = angular.module('todo',[]);
 
 // controllers
-app.controller('ToDoController', function($scope, DateService, StatService) {
+app.controller('ToDoController', function($scope, DateService, StatService, tstr) {
 	var vm = this;
 
 	// PRIVATE
@@ -57,6 +57,7 @@ app.controller('ToDoController', function($scope, DateService, StatService) {
 		vm.tasks = vm.tasks.filter(function(task) {
 			return task.done ? null : task ; 
 		});
+		tstr.warning('Done Tasks Cleared.');
 		// console.log(vm.tasks);
 		vm.task = vm.tasks.indexOf(vm.task) == -1 ? {} : vm.task ;
 	}
@@ -65,6 +66,7 @@ app.controller('ToDoController', function($scope, DateService, StatService) {
 		vm.newTask.done = 0;
 		vm.newTask.date = DateService.format(vm.newTask.date);
 		vm.tasks.unshift(vm.newTask);
+		tstr.success(vm.newTask.name, 'Task Added!');
 		vm.clearNew();
 	}
 	vm.clearNew = function() {
@@ -78,6 +80,7 @@ app.controller('ToDoController', function($scope, DateService, StatService) {
 
 // values
 app.value('mnt', window.moment);
+app.value('tstr', window.toastr);
 
 // servies
 app.factory('DateService', function(mnt) {
