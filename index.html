@@ -45,20 +45,20 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="task-name">Task</label>
-						<input type="text" class="form-control" id="task-name" placeholder="New Task Name">
+						<input type="text" class="form-control" id="task-name" placeholder="New Task Name" ng-model="vm.newTask.name">
 					</div>
 					<div class="form-group">
 						<label for="task-date">Due Date</label>
-						<input type="date" class="form-control" id="task-date">
+						<input type="date" class="form-control" id="task-date" ng-model="vm.newTask.date">
 					</div>
 					<div class="form-group">
 						<label for="task-description">Description</label>
-						<textarea rows="5" class="form-control" id="task-description"></textarea>
+						<textarea rows="5" class="form-control" id="task-description" placeholder="New Task Description" ng-model="vm.newTask.description"></textarea>
 					</div>
 				</div><!--.modal-body-->
 				<div class="modal-footer">
-					<button class="btn btn-default">Clear</button>
-					<input type="submit" class="btn btn-primary" data-dismiss="modal" value="Create">
+					<button type="button" class="btn btn-default" ng-click="vm.clearNew()">Clear</button>
+					<button type="submit" class="btn btn-primary" ng-click="vm.addNew()" data-dismiss="modal">Create</button>
 				</div><!--.modal-footer-->
 			</form>
 		</div><!--.modal-content-->
@@ -68,13 +68,13 @@
 <!-- To Do App -->
 <div class="container">
 	<h2>
-		To Do List {{ vm.test }}
+		To Do List
 		<button class="btn btn-primary" data-toggle="modal" data-target="#new-task-modal">New</button>
 	</h2>
 	<div class="row">
 		<div class="col-md-6">
 			<div class="form">
-				<input type="text" class="form-control" ng-model="vm.test">
+				<input type="text" class="form-control" ng-model="vm.search">
 			</div>
 		</div><!--.col-->
 	</div><!--.row-->
@@ -82,44 +82,45 @@
 		<div class="col-md-6">
 			<h3>
 				To Do
-				<small>2 remaining</small>
+				<small>{{ vm.tasks.length }} remaining</small>
 			</h3>
 			<table class="table">
-				<tr>
+				<tr ng-repeat="task in vm.tasks | filter:{done:false} | filter:vm.search">
 					<td class="col-md-1">
-						<div class="status status-todo"></div>
+						<div class="status status-todo" ng-click="vm.done(task)"></div>
 					</td>
-					<td>Task</td>
-				</tr>
-				<tr>
-					<td class="col-md-1">
-						<div class="status status-todo"></div>
+					<td>
+						<span class="task-name" ng-click="vm.detail(task)">
+							{{ task.name }}
+						</span>
 					</td>
-					<td>Task</td>
 				</tr>
 			</table>
 			<h4>
 				Done
-				<button class="btn btn-danger btn-xs">Clear</button>
+				<button class="btn btn-danger btn-xs" ng-click="vm.clear()">Clear</button>
 			</h4>
 			<table class="table">
-				<tr>
+				<tr ng-repeat="task in vm.tasks | filter:{done:true} | filter:vm.search">
 					<td class="col-md-1">
-						<div class="status status-done"></div>
+						<div class="status status-done" ng-click="vm.undone(task)"></div>
 					</td>
-					<td>Task</td>
+					<td class="task-name" ng-click="vm.detail(task)"><s>{{ task.name }}<s></td>
 				</tr>
 			</table>
 		</div><!--.col-->
-		<div class="col-md-6">
-			<h3>Task</h3>
-			<h4>Due Date</h4>
+		<div class="col-md-6" ng-if="vm.task.name">
+			<h3>
+				{{ vm.task.name }}
+			</h3>
+			<hr>
+			<h5>Due Date</h5>
 			<p class="lead">
-				Jan 1, 2016
+				{{ vm.task.date }}
 			</p>
-			<h4>Description</h4>
+			<h5>Description</h5>
 			<p class="lead">
-				This is my task. There are many like it but this is mine.
+				{{ vm.task.description }}
 			</p>
 		</div><!--.col-->
 	</div><!--.row-->

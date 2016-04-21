@@ -10,7 +10,6 @@ app.controller('ToDoController', function() {
 	// PRIVATE
 	function _init() {
 		console.log('ToDoController _init()');
-		vm.test = 'hello world';
 		vm.tasks = [
 			{
 				name: 'Angular Guest Lecutre',
@@ -34,9 +33,40 @@ app.controller('ToDoController', function() {
 	}
 
 	// PUBLIC
-	vm.test = 'hello';
 	vm.tasks = [];
 	vm.task = {};
+	vm.search = '';
+	vm.newTask = {};
+	vm.done = function(task) {
+		// console.log('vm.done()', task);
+		vm.tasks[vm.tasks.indexOf(task)].done = true;
+	}
+	vm.undone = function(task) {
+		// console.log('vm.undone()', task);
+		vm.tasks[vm.tasks.indexOf(task)].done = false;
+	}
+	vm.detail = function(task) {
+		// console.log('vm.detail()', task);
+		vm.task = vm.tasks[vm.tasks.indexOf(task)];
+	}
+	vm.clear = function() {
+		// console.log('vm.clear()');
+		vm.tasks = vm.tasks.filter(function(task) {
+			return task.done ? null : task ; 
+		});
+		// console.log(vm.tasks);
+		vm.task = vm.tasks.indexOf(vm.task) == -1 ? {} : vm.task ;
+	}
+	vm.addNew = function() {
+		console.log('vm.addNew()', vm.newTask);
+		vm.newTask.done = false;
+		vm.tasks.unshift(vm.newTask);
+		vm.clearNew();
+	}
+	vm.clearNew = function() {
+		console.log('vm.clearNew()');
+		vm.newTask = {};
+	}
 	
 	// RUN
 	_init();
