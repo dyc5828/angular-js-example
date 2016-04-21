@@ -1,9 +1,13 @@
 body {
-	font-size: 2.1em;
+	font-size: 12pt;
 }
 
 h4 {
 	color: #aaa;
+}
+
+tr {
+	font-size: 1.3em;
 }
 
 .task-name:hover {
