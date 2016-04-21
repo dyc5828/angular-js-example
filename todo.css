@@ -7,6 +7,9 @@ body {
 	margin: 0 auto;
 	background-size: cover;
 }
+.status:hover {
+	cursor: pointer;
+}
 
 .status-todo {
 	background-image: url('todo.svg');
