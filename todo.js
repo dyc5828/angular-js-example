@@ -1,40 +1,29 @@
-console.log('todo.js');
+// console.log('todo.js');
 
 // angular app
 var app = angular.module('todo',[]);
 
 // controllers
-app.controller('ToDoController', function($scope, DateService, StatService, tstr) {
+app.controller('ToDoController', function($scope, DateService, StatService, tstr, storage, json) {
 	var vm = this;
 
 	// PRIVATE
 	function _init() {
-		console.log('ToDoController _init()');
-		vm.tasks = [
-			{
-				name: 'Angular Guest Lecutre',
-				date: '4/21/2016',
-				description: 'Intro to Angular for ITP 301',
-				done: 0, 
-			},
-			{
-				name: 'Prepare Angular Lecutre',
-				date: '4/20/2016',
-				description: 'Finish Angular Example and Finalize Slides',
-				done: 1, 
-			},
-			{
-				name: 'Chill',
-				date: '4/21/2016',
-				description: 'Relax after the lecture',
-				done: 0, 
-			},
-		]
+		// console.log('ToDoController _init()');
+		if(storage.tasks) {
+			// console.log(storage.tasks);
+			vm.tasks = json.parse(storage.tasks);
+		}
 	}
 	$scope.$watch('vm.tasks', function() {
+		// console.log('vm.tasks changed');
 		vm.remaining = StatService.countRemaining(vm.tasks);
 		vm.done = StatService.countDone(vm.tasks);
 	}, true);
+	function _save() {
+		// console.log('ToDoController _save()');
+		storage.tasks = json.stringify(vm.tasks);
+	}
 
 	// PUBLIC
 	vm.tasks = [];
@@ -46,7 +35,8 @@ app.controller('ToDoController', function($scope, DateService, StatService, tstr
 	vm.toggle = function(task) {
 		// console.log('vm.done()', task);
 		vm.tasks[vm.tasks.indexOf(task)].done ^= true;
-		console.log(vm.tasks);
+		// console.log(vm.tasks);
+		_save();
 	}
 	vm.detail = function(task) {
 		// console.log('vm.detail()', task);
@@ -60,17 +50,19 @@ app.controller('ToDoController', function($scope, DateService, StatService, tstr
 		tstr.warning('Done Tasks Cleared.');
 		// console.log(vm.tasks);
 		vm.task = vm.tasks.indexOf(vm.task) == -1 ? {} : vm.task ;
+		_save();
 	}
 	vm.addNew = function() {
-		console.log('vm.addNew()', vm.newTask);
+		// console.log('vm.addNew()', vm.newTask);
 		vm.newTask.done = 0;
 		vm.newTask.date = DateService.format(vm.newTask.date);
 		vm.tasks.unshift(vm.newTask);
 		tstr.success(vm.newTask.name, 'Task Added!');
 		vm.clearNew();
+		_save();
 	}
 	vm.clearNew = function() {
-		console.log('vm.clearNew()');
+		// console.log('vm.clearNew()');
 		vm.newTask = {};
 	}
 	
@@ -81,6 +73,8 @@ app.controller('ToDoController', function($scope, DateService, StatService, tstr
 // values
 app.value('mnt', window.moment);
 app.value('tstr', window.toastr);
+app.value('storage', window.localStorage);
+app.value('json', window.JSON);
 
 // servies
 app.factory('DateService', function(mnt) {
